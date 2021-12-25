@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Trade App</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="enter">Войти</string>
+    <string name="register">Регистрация</string>
+    <string name="register_button_text">Зарегистрироваться</string>
+    <string name="unknown_login">Неизвестный пользователь</string>
 </resources>
