@@ -17,7 +17,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
-                    LOGIN_POSITION -> tab.text = getString(R.string.login)
+                    LOGIN_POSITION -> tab.text = getString(R.string.enter)
                     REGISTER_POSITION -> tab.text = getString(R.string.register)
                 }
             }.attach()

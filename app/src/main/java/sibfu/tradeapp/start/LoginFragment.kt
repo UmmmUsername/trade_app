@@ -11,34 +11,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(FragmentLoginBinding.bind(view)) {
+            removeErrorOnFocus(loginTextInputLayout, passwordTextInputLayout)
+
             loginButton.setOnClickListener {
-                loginTextInputEditText.text?.toString()?.let { login -> moveToNext(login = login) }
-            }
-        }
-    }
+                view.clearFocus()
 
-    private fun moveToNext(login: String) {
-        when (login) {
-            ADMIN_LOGIN -> {
+                onContinueButtonPressed(
+                    loginLayout = loginTextInputLayout,
+                    passwordLayout = passwordTextInputLayout,
+                )
             }
-
-            DISPATCHER_LOGIN -> {
-            }
-
-            WORKER_LOGIN -> {
-            }
-
-            else -> showUnknownUserToast()
         }
     }
 
     private fun showUnknownUserToast() {
         Toast.makeText(requireContext(), R.string.unknown_login, Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        private const val ADMIN_LOGIN = "admin"
-        private const val DISPATCHER_LOGIN = "dispatcher"
-        private const val WORKER_LOGIN = "worker"
     }
 }
