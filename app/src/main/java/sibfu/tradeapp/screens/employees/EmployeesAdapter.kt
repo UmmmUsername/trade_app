@@ -8,12 +8,13 @@ import sibfu.tradeapp.db.entities.Employee
 
 class EmployeesAdapter(
     private val employees: Array<Employee>,
+    private val onEmployeeClicked: (Int) -> Unit,
 ) : RecyclerView.Adapter<EmployeeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemEmployeeBinding.inflate(inflater, parent, false)
-        return EmployeeViewHolder(binding = binding)
+        return EmployeeViewHolder(binding = binding, onClick = onEmployeeClicked)
     }
 
     override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {

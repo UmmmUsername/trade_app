@@ -31,6 +31,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toEmployee"
+            app:destination="@id/employeeFragment" />
     </fragment>
 
     <fragment
@@ -49,6 +52,17 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/employeeFragment"
+        android:name="sibfu.tradeapp.screens.employee.EmployeeFragment"
+        android:label="EmployeeFragment"
+        tools:layout="@layout/fragment_employee">
+
+        <argument
+            android:name="employeeId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

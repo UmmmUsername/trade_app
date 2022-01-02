@@ -25,4 +25,7 @@
     <string name="deal_number_pattern">Сделка №%d</string>
     <string name="bought_pattern">Куплено: %1$s, %2$d %3$s</string>
     <string name="sold_pattern">Продано: %1$s, %2$d %3$s</string>
+    <string name="employee_not_found">Не удалось найти данного сотрудника</string>
+    <string name="ok">Ок</string>
+    <string name="about_employee">О сотруднике</string>
 </resources>

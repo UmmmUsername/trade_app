@@ -18,12 +18,12 @@ interface EmployeeDao {
     suspend fun findAllNonAdmin(): Array<Employee>
 
     @Transaction
-    @Query("SELECT * FROM Employee")
-    fun getEmployeesWithDeals(): List<EmployeeWithDeals>
+    @Query("SELECT * FROM Employee WHERE id = :id")
+    suspend fun getEmployeeWithDealsById(id: Int): EmployeeWithDeals?
 
     @Insert
-    fun insertAll(vararg users: Employee)
+    suspend fun insertAll(vararg users: Employee)
 
     @Delete
-    fun delete(user: Employee)
+    suspend fun delete(user: Employee)
 }
