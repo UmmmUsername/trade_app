@@ -1,15 +1,15 @@
 package sibfu.tradeapp.screens.main
 
 import sibfu.tradeapp.db.entities.Client
-import sibfu.tradeapp.db.entities.Deal
 import sibfu.tradeapp.db.entities.Employee
+import sibfu.tradeapp.db.entities.FullDeal
 
 sealed interface MainScreenData
 
 data class AdminData(
     val employees: Array<Employee>,
     val clients: Array<Client>,
-    val deals: Array<Deal>,
+    val fullDeals: Array<FullDeal>,
 ) : MainScreenData {
 
     override fun equals(other: Any?): Boolean {
@@ -20,7 +20,7 @@ data class AdminData(
 
         if (!employees.contentEquals(other.employees)) return false
         if (!clients.contentEquals(other.clients)) return false
-        if (!deals.contentEquals(other.deals)) return false
+        if (!fullDeals.contentEquals(other.fullDeals)) return false
 
         return true
     }
@@ -28,7 +28,7 @@ data class AdminData(
     override fun hashCode(): Int {
         var result = employees.contentHashCode()
         result = 31 * result + clients.contentHashCode()
-        result = 31 * result + deals.contentHashCode()
+        result = 31 * result + fullDeals.contentHashCode()
         return result
     }
 }

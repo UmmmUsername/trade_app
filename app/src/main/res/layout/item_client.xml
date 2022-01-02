@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
+    android:focusable="true"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="10dp"
+    android:text="@string/dispatcher"
+    android:textColor="@color/black"
+    android:textSize="18sp" />

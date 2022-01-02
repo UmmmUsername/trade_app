@@ -18,7 +18,7 @@ class MainViewModel : ViewModel() {
             val clients = db.clientDao().findAll()
             val deals = db.dealDao().findAll()
 
-            val data = AdminData(employees = employees, clients = clients, deals = deals)
+            val data = AdminData(employees = employees, clients = clients, fullDeals = deals)
 
             _state.value = MainState(isLoading = false, data = data)
         }

@@ -107,7 +107,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             fragment = this,
             employees = employees,
             clients = clients,
-            deals = deals,
+            fullDeals = deals,
         )
 
         val strategy = TabLayoutMediator.TabConfigurationStrategy { tab, position ->

@@ -1,13 +1,15 @@
 package sibfu.tradeapp.db.entities
 
-import androidx.room.ColumnInfo
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity
+@Parcelize
 data class Product(
     @PrimaryKey val id: Int,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "unit") val unit: Int,
-    @ColumnInfo(name = "price") val price: Int,
-)
+    val name: String,
+    val unit: String,
+    val price: Int,
+) : Parcelable

@@ -5,18 +5,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import sibfu.tradeapp.db.entities.Client
-import sibfu.tradeapp.db.entities.Deal
 import sibfu.tradeapp.db.entities.Employee
-import sibfu.tradeapp.screens.ClientsFragment
-import sibfu.tradeapp.screens.DealsFragment
-import sibfu.tradeapp.screens.EmployeesFragment
+import sibfu.tradeapp.db.entities.FullDeal
+import sibfu.tradeapp.screens.clients.ClientsFragment
+import sibfu.tradeapp.screens.deals.DealsFragment
+import sibfu.tradeapp.screens.employees.EmployeesFragment
 import sibfu.tradeapp.utils.throwIllegalPositionException
 
 class AdminAdapter(
     fragment: Fragment,
     private val employees: Array<Employee>,
     private val clients: Array<Client>,
-    private val deals: Array<Deal>,
+    private val fullDeals: Array<FullDeal>,
 ) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int =
@@ -31,7 +31,7 @@ class AdminAdapter(
                 ClientsFragment().setArgs(ClientsFragment.CLIENTS to clients)
 
             DEALS_POSITION ->
-                DealsFragment().setArgs(DealsFragment.DEALS to deals)
+                DealsFragment().setArgs(DealsFragment.DEALS to fullDeals)
 
             else -> throwIllegalPositionException(position = position)
         }
