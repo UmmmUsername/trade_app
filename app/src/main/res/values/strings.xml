@@ -6,7 +6,17 @@
     <string name="enter">Войти</string>
     <string name="register">Регистрация</string>
     <string name="register_button_text">Зарегистрироваться</string>
-    <string name="unknown_login">Неизвестный пользователь</string>
     <string name="field_required">Необходимо заполнить это поле</string>
     <string name="passwords_not_match">Пароли не совпадают</string>
+    <string name="lastName">Фамилия</string>
+    <string name="firstName">Имя</string>
+    <string name="patronymic">Отчество</string>
+    <string name="employees">Сотрудники</string>
+    <string name="clients">Клиенты</string>
+    <string name="deals">Сделки</string>
+    <string name="login_and_password_not_match">Логин и пароль не сопадают</string>
+    <string name="admin">Администратор</string>
+    <string name="dispatcher">Диспетчер</string>
+    <string name="worker">Работник</string>
+    <string name="logout">Выйти</string>
 </resources>
