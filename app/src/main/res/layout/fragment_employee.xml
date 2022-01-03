@@ -40,17 +40,55 @@
             <sibfu.tradeapp.view.TwoLinesItemView
                 android:id="@+id/lastNameView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:title="@string/lastName" />
 
             <sibfu.tradeapp.view.TwoLinesItemView
                 android:id="@+id/firstNameView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:title="@string/firstName" />
 
             <sibfu.tradeapp.view.TwoLinesItemView
                 android:id="@+id/patronymicView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:title="@string/patronymic" />
+
+            <sibfu.tradeapp.view.TwoLinesItemView
+                android:id="@+id/numberView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/personal_number" />
+
+            <sibfu.tradeapp.view.TwoLinesItemView
+                android:id="@+id/positionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/position" />
+
+            <sibfu.tradeapp.view.TwoLinesItemView
+                android:id="@+id/experienceView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/experience" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/dealsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/deals"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

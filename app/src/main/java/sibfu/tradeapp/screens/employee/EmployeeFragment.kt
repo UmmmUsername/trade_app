@@ -16,17 +16,23 @@ import kotlinx.coroutines.launch
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentEmployeeBinding
 import sibfu.tradeapp.db.entities.EmployeeWithDeals
+import sibfu.tradeapp.screens.deals.DealsAdapter
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 
 class EmployeeFragment : Fragment(R.layout.fragment_employee) {
 
     private val args: EmployeeFragmentArgs by navArgs()
+    private val viewModel: EmployeeViewModel by viewModels()
 
     private var _binding: FragmentEmployeeBinding? = null
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentEmployeeBinding.bind(view)
-        val viewModel: EmployeeViewModel by viewModels()
         viewModel.requestEmployee(employeeId = args.employeeId)
 
         with(binding.toolbar) {
@@ -46,6 +52,19 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
 
                     state.employeeWithDeals?.let { employeeWithDeals ->
                         showEmployee(employeeWithDeals = employeeWithDeals)
+                    }
+
+                    state.fullDeals?.let { fullDeals ->
+                        val isNotEmpty = fullDeals.isNotEmpty()
+
+                        with(binding) {
+                            dealsTextView.isVisible = isNotEmpty
+                            recyclerView.isVisible = isNotEmpty
+
+                            if (isNotEmpty) {
+                                recyclerView.adapter = DealsAdapter(fullDeals = fullDeals)
+                            }
+                        }
                     }
                 }
             }
@@ -72,21 +91,61 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
 
     private fun showEmployee(employeeWithDeals: EmployeeWithDeals) {
         val (employee, deals) = employeeWithDeals
+        viewModel.requestFullDeals(employeeId = employee.id)
 
         with(binding) {
-            lastNameView.titleTextView.text = getString(R.string.lastName)
             lastNameView.descriptionTextView.text = employee.lastName
-
-            firstNameView.titleTextView.text = getString(R.string.firstName)
             firstNameView.descriptionTextView.text = employee.firstName
 
             employee.patronymic?.let { patronymic ->
-                patronymicView.titleTextView.text = getString(R.string.patronymic)
+                patronymicView.isVisible = true
                 patronymicView.descriptionTextView.text = patronymic
             }
+
+            numberView.descriptionTextView.text = employee.id.toString()
+            positionView.descriptionTextView.text = employee.position
+
+            experienceView.descriptionTextView.text =
+                getExperienceString(workSinceTimestamp = employee.workSinceTimestamp)
         }
     }
 
     private fun navigateUp(): Boolean =
         findNavController().navigateUp()
+
+    private fun getExperienceString(workSinceTimestamp: Long): String {
+        val startDate =
+            LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(workSinceTimestamp),
+                ZoneId.systemDefault()
+            ).toLocalDate()
+
+        val now = LocalDate.now()
+        val years = ChronoUnit.YEARS.between(startDate, now)
+        val newLocalDate = startDate.plus(years, ChronoUnit.YEARS)
+        val months = ChronoUnit.MONTHS.between(newLocalDate, now).toInt()
+
+        val yearsString =
+            if (years > 0) {
+                resources.getQuantityString(R.plurals.years, years.toInt(), years)
+            } else {
+                null
+            }
+
+        val monthsString =
+            if (months > 0) {
+                resources.getQuantityString(R.plurals.months, months, months)
+            } else {
+                null
+            }
+
+        return when {
+            yearsString != null && monthsString != null ->
+                getString(R.string.space_separated_pattern, yearsString, monthsString)
+
+            yearsString != null -> yearsString
+            monthsString != null -> monthsString
+            else -> getString(R.string.less_than_month)
+        }
+    }
 }

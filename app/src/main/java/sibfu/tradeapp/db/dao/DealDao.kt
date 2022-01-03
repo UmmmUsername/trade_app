@@ -11,4 +11,8 @@ interface DealDao {
     @Transaction
     @Query("SELECT * FROM Deal")
     suspend fun findAll(): Array<FullDeal>
+
+    @Transaction
+    @Query("SELECT * FROM Deal WHERE employeeId = :employeeId")
+    suspend fun findAllByEmployeeId(employeeId: Int): Array<FullDeal>
 }

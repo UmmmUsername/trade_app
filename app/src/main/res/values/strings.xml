@@ -1,4 +1,18 @@
 <resources>
+    <plurals name="years">
+        <item quantity="zero" />
+        <item quantity="one">%1$d год</item>
+        <item quantity="few">%1$d года</item>
+        <item quantity="other">%1$d лет</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="zero" />
+        <item quantity="one">%1$d месяц</item>
+        <item quantity="few">%1$d месяца</item>
+        <item quantity="other">%1$d месяцев</item>
+    </plurals>
+
     <string name="app_name">Trade App</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
@@ -22,10 +36,15 @@
     <string name="shortened_name_pattern">%1$s %2$s. %3$s.</string>
     <string name="shortened_name_pattern_no_patronymic">%1$s %2$s.</string>
     <string name="personal_number_pattern">Личный номер: %d</string>
+    <string name="personal_number">Личный номер</string>
     <string name="deal_number_pattern">Сделка №%d</string>
     <string name="bought_pattern">Куплено: %1$s, %2$d %3$s</string>
     <string name="sold_pattern">Продано: %1$s, %2$d %3$s</string>
     <string name="employee_not_found">Не удалось найти данного сотрудника</string>
     <string name="ok">Ок</string>
     <string name="about_employee">О сотруднике</string>
+    <string name="position">Должность</string>
+    <string name="experience">Стаж</string>
+    <string name="space_separated_pattern">%1$s %2$s</string>
+    <string name="less_than_month">Меньше месяца</string>
 </resources>

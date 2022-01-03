@@ -33,7 +33,7 @@ class TwoLinesItemView @JvmOverloads constructor(
             typedArray.recycle()
         }
 
-        isClickable = true
-        isFocusable = true
+//        isClickable = true
+//        isFocusable = true
     }
 }

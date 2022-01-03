@@ -26,6 +26,13 @@ class EmployeeViewModel : ViewModel() {
         }
     }
 
+    fun requestFullDeals(employeeId: Int) {
+        viewModelScope.launch {
+            val fullDeals = db.dealDao().findAllByEmployeeId(employeeId = employeeId)
+            _state.value = state.value.copy(fullDeals = fullDeals)
+        }
+    }
+
     fun onErrorConsumed() {
         _state.value = state.value.copy(errorRes = null)
     }
