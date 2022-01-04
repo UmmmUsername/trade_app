@@ -19,6 +19,7 @@ import sibfu.tradeapp.db.entities.Employee
 import sibfu.tradeapp.db.entities.FullDeal
 import sibfu.tradeapp.models.Role
 import sibfu.tradeapp.screens.deals.DealsAdapter
+import sibfu.tradeapp.utils.navigateUp
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -39,7 +40,6 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
 
         with(binding.toolbar) {
             setNavigationOnClickListener { navigateUp() }
-            title = getString(R.string.about_employee)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -120,9 +120,6 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
         }
     }
 
-    private fun navigateUp(): Boolean =
-        findNavController().navigateUp()
-
     private fun getExperienceString(workSinceTimestamp: Long): String {
         val startDate =
             LocalDateTime.ofInstant(
@@ -160,7 +157,7 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
     }
 
     private fun moveToDealFragment(fullDeal: FullDeal) {
-        val direction = EmployeeFragmentDirections.toDealFragment()
+        val direction = EmployeeFragmentDirections.toDealFragment(fullDeal = fullDeal)
         findNavController().navigate(direction)
     }
 }

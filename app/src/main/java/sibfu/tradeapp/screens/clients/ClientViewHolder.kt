@@ -8,7 +8,10 @@ class ClientViewHolder(
     private val binding: ItemClientBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(client: Client) {
-        binding.textView.text = client.name
+    fun bind(client: Client, onClick: (Client) -> Unit) {
+        with(binding) {
+            textView.text = client.name
+            root.setOnClickListener { onClick(client) }
+        }
     }
 }

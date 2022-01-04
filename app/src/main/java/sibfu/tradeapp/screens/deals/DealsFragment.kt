@@ -26,7 +26,7 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
     }
 
     private fun onDealClicked(fullDeal: FullDeal) {
-        val direction = MainFragmentDirections.toDealFragment()
+        val direction = MainFragmentDirections.toDealFragment(fullDeal = fullDeal)
         findNavController().navigate(direction)
     }
 

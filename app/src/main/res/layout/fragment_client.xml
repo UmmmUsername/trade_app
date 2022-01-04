@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:title="@string/about_client" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/numberView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/client_number" />
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/nameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/client_name" />
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/legalAddressView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/legal_address" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

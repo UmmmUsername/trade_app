@@ -43,6 +43,8 @@
     <string name="employee_not_found">Не удалось найти данного сотрудника</string>
     <string name="ok">Ок</string>
     <string name="about_employee">О сотруднике</string>
+    <string name="about_deal">О сделке</string>
+    <string name="about_client">О клиенте</string>
     <string name="position">Должность</string>
     <string name="experience">Стаж</string>
     <string name="space_separated_pattern">%1$s %2$s</string>
@@ -50,4 +52,17 @@
     <string name="income_pattern">Прибыль: %d руб.</string>
     <string name="costs_pattern">Расходы: %d руб.</string>
     <string name="save">Сохранить</string>
+    <string name="deal_number">Номер сделки</string>
+    <string name="deal_type">Тип сделки</string>
+    <string name="deal_type_purchase">Покупка</string>
+    <string name="deal_type_sale">Продажа</string>
+    <string name="seller">Продавец</string>
+    <string name="buyer">Покупатель</string>
+    <string name="deal_sum">Сумма сделки</string>
+    <string name="product">Товар</string>
+    <string name="amount">Количество</string>
+    <string name="ruble_pattern">%d руб.</string>
+    <string name="client_number">Номер клиента</string>
+    <string name="client_name">Название организации</string>
+    <string name="legal_address">Юридический адрес</string>
 </resources>

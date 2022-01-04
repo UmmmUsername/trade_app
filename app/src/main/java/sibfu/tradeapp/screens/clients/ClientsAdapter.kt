@@ -8,6 +8,7 @@ import sibfu.tradeapp.db.entities.Client
 
 class ClientsAdapter(
     private val clients: Array<Client>,
+    private val onClientClick: (Client) -> Unit,
 ) : RecyclerView.Adapter<ClientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
@@ -17,7 +18,7 @@ class ClientsAdapter(
     }
 
     override fun onBindViewHolder(holder: ClientViewHolder, position: Int) {
-        holder.bind(client = clients[position])
+        holder.bind(client = clients[position], onClick = onClientClick)
     }
 
     override fun getItemCount(): Int =
