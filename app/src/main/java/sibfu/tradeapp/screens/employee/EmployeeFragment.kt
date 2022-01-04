@@ -62,10 +62,13 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
                             recyclerView.isVisible = isNotEmpty
 
                             if (isNotEmpty) {
-                                recyclerView.adapter = DealsAdapter(
-                                    fullDeals = fullDeals,
-                                    onDealClicked = ::moveToDealFragment,
-                                )
+                                recyclerView.adapter =
+                                    DealsAdapter(fullDeals = fullDeals) { fullDeal ->
+                                        moveToDealFragment(
+                                            fullDeal = fullDeal,
+                                            myRole = args.myRole,
+                                        )
+                                    }
                             }
                         }
                     }
@@ -115,8 +118,22 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
                 viewModel.changeRole(isDispatcher = isChecked)
             }
 
-            button.text = getString(R.string.save)
-            button.setOnClickListener { viewModel.save { navigateUp() } }
+            when (args.myRole) {
+                Role.ADMIN -> {
+                    dispatcherTextCheckBoxView.isVisible = true
+                    button.text = getString(R.string.save)
+                    button.setOnClickListener { viewModel.save { navigateUp() } }
+                }
+
+                Role.DISPATCHER -> {
+                    button.text = getString(R.string.fire_employee)
+                    button.setOnClickListener { /* TODO show dialog */ }
+                }
+
+                Role.WORKER -> {
+                    button.isVisible = false
+                }
+            }
         }
     }
 
@@ -156,8 +173,12 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
         }
     }
 
-    private fun moveToDealFragment(fullDeal: FullDeal) {
-        val direction = EmployeeFragmentDirections.toDealFragment(fullDeal = fullDeal)
+    private fun moveToDealFragment(fullDeal: FullDeal, myRole: Role) {
+        val direction = EmployeeFragmentDirections.toDealFragment(
+            fullDeal = fullDeal,
+            myRole = myRole,
+        )
+
         findNavController().navigate(direction)
     }
 }

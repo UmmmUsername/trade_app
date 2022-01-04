@@ -70,6 +70,9 @@
             android:name="employeeId"
             app:argType="integer" />
 
+        <argument
+            android:name="myRole"
+            app:argType="sibfu.tradeapp.models.Role" />
         <action
             android:id="@+id/toDealFragment"
             app:destination="@id/dealFragment" />
@@ -82,6 +85,9 @@
         tools:layout="@layout/fragment_deal">
 
         <argument
+            android:name="myRole"
+            app:argType="sibfu.tradeapp.models.Role" />
+        <argument
             android:name="fullDeal"
             app:argType="sibfu.tradeapp.db.entities.FullDeal" />
 
@@ -91,6 +97,9 @@
         <action
             android:id="@+id/toClientFragment"
             app:destination="@id/clientFragment" />
+        <action
+            android:id="@+id/toProductFragment"
+            app:destination="@id/productFragment" />
     </fragment>
 
     <fragment
@@ -100,8 +109,25 @@
         tools:layout="@layout/fragment_client">
 
         <argument
+            android:name="myRole"
+            app:argType="sibfu.tradeapp.models.Role" />
+        <argument
             android:name="client"
             app:argType="sibfu.tradeapp.db.entities.Client" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="sibfu.tradeapp.screens.ProductFragment"
+        android:label="ProductFragment"
+        tools:layout="@layout/fragment_product">
+
+        <argument
+            android:name="myRole"
+            app:argType="sibfu.tradeapp.models.Role" />
+        <argument
+            android:name="product"
+            app:argType="sibfu.tradeapp.db.entities.Product" />
     </fragment>
 
 </navigation>

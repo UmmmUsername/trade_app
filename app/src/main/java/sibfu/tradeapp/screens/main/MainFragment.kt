@@ -105,6 +105,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         val adapter = AdminAdapter(
             fragment = this,
+            myRole = myRole,
             employees = employees,
             clients = clients,
             fullDeals = deals,

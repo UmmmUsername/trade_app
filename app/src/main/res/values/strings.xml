@@ -65,4 +65,9 @@
     <string name="client_number">Номер клиента</string>
     <string name="client_name">Название организации</string>
     <string name="legal_address">Юридический адрес</string>
+    <string name="product_number">Номер товара</string>
+    <string name="product_name">Наименование товара</string>
+    <string name="unit">Единица измерений</string>
+    <string name="price_per_one">Цена за единицу</string>
+    <string name="fire_employee">Уволить</string>
 </resources>

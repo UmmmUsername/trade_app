@@ -7,13 +7,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import sibfu.tradeapp.db.entities.Client
 import sibfu.tradeapp.db.entities.Employee
 import sibfu.tradeapp.db.entities.FullDeal
+import sibfu.tradeapp.models.Role
 import sibfu.tradeapp.screens.clients.ClientsFragment
 import sibfu.tradeapp.screens.deals.DealsFragment
 import sibfu.tradeapp.screens.employees.EmployeesFragment
+import sibfu.tradeapp.screens.main.MY_ROLE_KEY
 import sibfu.tradeapp.utils.throwIllegalPositionException
 
 class AdminAdapter(
     fragment: Fragment,
+    private val myRole: Role,
     private val employees: Array<Employee>,
     private val clients: Array<Client>,
     private val fullDeals: Array<FullDeal>,
@@ -38,7 +41,7 @@ class AdminAdapter(
     }
 
     private fun Fragment.setArgs(pair: Pair<String, Array<out Parcelable>>) =
-        apply { arguments = bundleOf(pair) }
+        apply { arguments = bundleOf(MY_ROLE_KEY to myRole, pair) }
 
     companion object {
         const val EMPLOYEES_POSITION = 0

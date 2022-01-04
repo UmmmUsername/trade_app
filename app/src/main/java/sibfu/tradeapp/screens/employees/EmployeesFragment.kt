@@ -7,24 +7,27 @@ import androidx.navigation.fragment.findNavController
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentLinearVerticalRecyclerViewBinding
 import sibfu.tradeapp.db.entities.Employee
+import sibfu.tradeapp.models.Role
+import sibfu.tradeapp.screens.main.MY_ROLE_KEY
 import sibfu.tradeapp.screens.main.MainFragmentDirections
 
 class EmployeesFragment : Fragment(R.layout.fragment_linear_vertical_recycler_view) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val employees = arguments?.getParcelableArray(EMPLOYEES) as? Array<Employee> ?: return
-        val adapter = EmployeesAdapter(
-            employees = employees,
-            onEmployeeClicked = this::onEmployeeClicked
-        )
+        val myRole = arguments?.getSerializable(MY_ROLE_KEY) as? Role ?: return
+
+        val adapter = EmployeesAdapter(employees = employees) { employeeId ->
+            onEmployeeClicked(employeeId = employeeId, myRole = myRole)
+        }
 
         with(FragmentLinearVerticalRecyclerViewBinding.bind(view)) {
             recyclerView.adapter = adapter
         }
     }
 
-    private fun onEmployeeClicked(employeeId: Int) {
-        val direction = MainFragmentDirections.toEmployee(employeeId = employeeId)
+    private fun onEmployeeClicked(employeeId: Int, myRole: Role) {
+        val direction = MainFragmentDirections.toEmployee(employeeId = employeeId, myRole = myRole)
         findNavController().navigate(direction)
     }
 

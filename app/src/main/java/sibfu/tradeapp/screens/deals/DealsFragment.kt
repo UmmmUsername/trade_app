@@ -7,6 +7,8 @@ import androidx.navigation.fragment.findNavController
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentDealsBinding
 import sibfu.tradeapp.db.entities.FullDeal
+import sibfu.tradeapp.models.Role
+import sibfu.tradeapp.screens.main.MY_ROLE_KEY
 import sibfu.tradeapp.screens.main.MainFragmentDirections
 import kotlin.math.abs
 
@@ -14,7 +16,12 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val fullDeals = arguments?.getParcelableArray(DEALS) as? Array<FullDeal> ?: return
-        val adapter = DealsAdapter(fullDeals = fullDeals, onDealClicked = this::onDealClicked)
+        val myRole = arguments?.getSerializable(MY_ROLE_KEY) as? Role ?: return
+
+        val adapter = DealsAdapter(fullDeals = fullDeals) { fullDeal ->
+            onDealClicked(fullDeal = fullDeal, myRole = myRole)
+        }
+
         val income = fullDeals.calculateFullPrice { fullDeal -> fullDeal.deal.amount >= 0 } ?: 0
         val costs = abs(fullDeals.calculateFullPrice { fullDeal -> fullDeal.deal.amount < 0 } ?: 0)
 
@@ -25,8 +32,8 @@ class DealsFragment : Fragment(R.layout.fragment_deals) {
         }
     }
 
-    private fun onDealClicked(fullDeal: FullDeal) {
-        val direction = MainFragmentDirections.toDealFragment(fullDeal = fullDeal)
+    private fun onDealClicked(fullDeal: FullDeal, myRole: Role) {
+        val direction = MainFragmentDirections.toDealFragment(fullDeal = fullDeal, myRole = myRole)
         findNavController().navigate(direction)
     }
 

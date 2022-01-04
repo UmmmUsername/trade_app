@@ -7,6 +7,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentDealBinding
+import sibfu.tradeapp.db.entities.Client
+import sibfu.tradeapp.db.entities.Product
+import sibfu.tradeapp.models.Role
 import sibfu.tradeapp.utils.navigateUp
 import kotlin.math.abs
 
@@ -15,22 +18,14 @@ class DealFragment : Fragment(R.layout.fragment_deal) {
     private val args: DealFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val (deal, employee, client, product) = args.fullDeal
+        val (myRole, fullDeal) = args
+        val (deal, employee, client, product) = fullDeal
         val (id, _, _, _, amount) = deal
 
         val employeeName = employee.getShortenedName(context = requireContext())
         val clientName = client.name
-        val navController = findNavController()
-
-        val onEmployeeClicked = {
-            val direction = DealFragmentDirections.toEmployee(employeeId = employee.id)
-            navController.navigate(direction)
-        }
-
-        val onClientClicked = {
-            val direction = DealFragmentDirections.toClientFragment(client = client)
-            navController.navigate(direction)
-        }
+        val onEmployeeClicked = { moveToEmployee(myRole = myRole, employeeId = employee.id) }
+        val onClientClicked = { moveToClient(myRole = myRole, client = client) }
 
         val dealTypeRes: Int
         val sellerName: String
@@ -70,6 +65,22 @@ class DealFragment : Fragment(R.layout.fragment_deal) {
 
             sellerView.setOnClickListener { onSellerClicked() }
             buyerView.setOnClickListener { onBuyerClicked() }
+            productView.setOnClickListener { moveToProduct(myRole = myRole, product = product) }
         }
+    }
+
+    private fun moveToProduct(myRole: Role, product: Product) {
+        val direction = DealFragmentDirections.toProductFragment(myRole = myRole, product = product)
+        findNavController().navigate(direction)
+    }
+
+    private fun moveToEmployee(myRole: Role, employeeId: Int) {
+        val direction = DealFragmentDirections.toEmployee(myRole = myRole, employeeId = employeeId)
+        findNavController().navigate(direction)
+    }
+
+    private fun moveToClient(myRole: Role, client: Client) {
+        val direction = DealFragmentDirections.toClientFragment(myRole = myRole, client = client)
+        findNavController().navigate(direction)
     }
 }

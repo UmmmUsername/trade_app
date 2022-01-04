@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
+            app:title="@string/about_client" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/numberView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/product_number" />
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/nameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/product_name" />
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/unitView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/unit" />
+
+    <sibfu.tradeapp.view.TwoLinesItemView
+        android:id="@+id/priceView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:title="@string/price_per_one" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_outline_add_24" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
