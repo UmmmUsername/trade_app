@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import sibfu.tradeapp.R
+import sibfu.tradeapp.db.entities.Employee
 import sibfu.tradeapp.utils.db
 
 class EmployeeViewModel : ViewModel() {
@@ -15,13 +16,13 @@ class EmployeeViewModel : ViewModel() {
 
     fun requestEmployee(employeeId: Int) {
         viewModelScope.launch {
-            val employeeWithDeals = db.employeeDao().getEmployeeWithDealsById(id = employeeId)
+            val employee = db.employeeDao().findEmployeeById(id = employeeId)
 
             _state.value =
-                if (employeeWithDeals == null) {
+                if (employee == null) {
                     EmployeeState(errorRes = R.string.employee_not_found)
                 } else {
-                    EmployeeState(isLoading = false, employeeWithDeals = employeeWithDeals)
+                    EmployeeState(isLoading = false, employee = employee)
                 }
         }
     }
@@ -30,6 +31,27 @@ class EmployeeViewModel : ViewModel() {
         viewModelScope.launch {
             val fullDeals = db.dealDao().findAllByEmployeeId(employeeId = employeeId)
             _state.value = state.value.copy(fullDeals = fullDeals)
+        }
+    }
+
+    fun changeRole(isDispatcher: Boolean) {
+        val newEmployee =
+            if (isDispatcher) {
+                state.value.employee?.copy(roleString = Employee.DISPATCHER)
+            } else {
+                state.value.employee?.copy(roleString = Employee.WORKER)
+            }
+
+        _state.value = state.value.copy(employee = newEmployee)
+    }
+
+    fun save(doOnSaved: () -> Unit) {
+        viewModelScope.launch {
+            state.value.employee?.let { employee ->
+                db.employeeDao().update(employee = employee)
+            }
+
+            doOnSaved()
         }
     }
 

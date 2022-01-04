@@ -47,4 +47,7 @@
     <string name="experience">Стаж</string>
     <string name="space_separated_pattern">%1$s %2$s</string>
     <string name="less_than_month">Меньше месяца</string>
+    <string name="income_pattern">Прибыль: %d руб.</string>
+    <string name="costs_pattern">Расходы: %d руб.</string>
+    <string name="save">Сохранить</string>
 </resources>

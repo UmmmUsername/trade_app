@@ -10,7 +10,7 @@ class DealViewHolder(
     private val binding: ItemDealBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(fullDeal: FullDeal) {
+    fun bind(fullDeal: FullDeal, onClick: (FullDeal) -> Unit) {
         with(binding) {
             val (deal, _, _, product) = fullDeal
             val amount = deal.amount
@@ -26,6 +26,8 @@ class DealViewHolder(
                     product.unit,
                 )
             }
+
+            root.setOnClickListener { onClick(fullDeal) }
         }
     }
 }

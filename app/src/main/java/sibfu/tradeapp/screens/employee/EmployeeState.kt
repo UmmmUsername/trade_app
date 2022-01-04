@@ -1,11 +1,11 @@
 package sibfu.tradeapp.screens.employee
 
-import sibfu.tradeapp.db.entities.EmployeeWithDeals
+import sibfu.tradeapp.db.entities.Employee
 import sibfu.tradeapp.db.entities.FullDeal
 
 data class EmployeeState(
     val isLoading: Boolean = true,
-    val employeeWithDeals: EmployeeWithDeals? = null,
+    val employee: Employee? = null,
     val fullDeals: Array<FullDeal>? = null,
     val errorRes: Int? = null,
 ) {
@@ -17,7 +17,7 @@ data class EmployeeState(
         other as EmployeeState
 
         if (isLoading != other.isLoading) return false
-        if (employeeWithDeals != other.employeeWithDeals) return false
+        if (employee != other.employee) return false
         if (fullDeals != null) {
             if (other.fullDeals == null) return false
             if (!fullDeals.contentEquals(other.fullDeals)) return false
@@ -29,7 +29,7 @@ data class EmployeeState(
 
     override fun hashCode(): Int {
         var result = isLoading.hashCode()
-        result = 31 * result + (employeeWithDeals?.hashCode() ?: 0)
+        result = 31 * result + (employee?.hashCode() ?: 0)
         result = 31 * result + (fullDeals?.contentHashCode() ?: 0)
         result = 31 * result + (errorRes ?: 0)
         return result

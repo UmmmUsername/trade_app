@@ -34,6 +34,9 @@
         <action
             android:id="@+id/toEmployee"
             app:destination="@id/employeeFragment" />
+        <action
+            android:id="@+id/toDealFragment"
+            app:destination="@id/dealFragment" />
     </fragment>
 
     <fragment
@@ -63,6 +66,16 @@
         <argument
             android:name="employeeId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/toDealFragment"
+            app:destination="@id/dealFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/dealFragment"
+        android:name="sibfu.tradeapp.screens.DealFragment"
+        android:label="DealFragment"
+        tools:layout="@layout/fragment_deal" />
 
 </navigation>

@@ -8,6 +8,7 @@ import sibfu.tradeapp.db.entities.FullDeal
 
 class DealsAdapter(
     private val fullDeals: Array<FullDeal>,
+    private val onDealClicked: (FullDeal) -> Unit,
 ) : RecyclerView.Adapter<DealViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DealViewHolder {
@@ -17,7 +18,7 @@ class DealsAdapter(
     }
 
     override fun onBindViewHolder(holder: DealViewHolder, position: Int) {
-        holder.bind(fullDeal = fullDeals[position])
+        holder.bind(fullDeal = fullDeals[position], onClick = onDealClicked)
     }
 
     override fun getItemCount(): Int =

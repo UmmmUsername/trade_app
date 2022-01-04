@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentEmployeeBinding
-import sibfu.tradeapp.db.entities.EmployeeWithDeals
+import sibfu.tradeapp.db.entities.Employee
+import sibfu.tradeapp.db.entities.FullDeal
+import sibfu.tradeapp.models.Role
 import sibfu.tradeapp.screens.deals.DealsAdapter
 import java.time.Instant
 import java.time.LocalDate
@@ -50,9 +52,7 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
                         viewModel.onErrorConsumed()
                     }
 
-                    state.employeeWithDeals?.let { employeeWithDeals ->
-                        showEmployee(employeeWithDeals = employeeWithDeals)
-                    }
+                    state.employee?.let { employee -> showEmployee(employee = employee) }
 
                     state.fullDeals?.let { fullDeals ->
                         val isNotEmpty = fullDeals.isNotEmpty()
@@ -62,7 +62,10 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
                             recyclerView.isVisible = isNotEmpty
 
                             if (isNotEmpty) {
-                                recyclerView.adapter = DealsAdapter(fullDeals = fullDeals)
+                                recyclerView.adapter = DealsAdapter(
+                                    fullDeals = fullDeals,
+                                    onDealClicked = ::moveToDealFragment,
+                                )
                             }
                         }
                     }
@@ -89,8 +92,7 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
             .show()
     }
 
-    private fun showEmployee(employeeWithDeals: EmployeeWithDeals) {
-        val (employee, deals) = employeeWithDeals
+    private fun showEmployee(employee: Employee) {
         viewModel.requestFullDeals(employeeId = employee.id)
 
         with(binding) {
@@ -107,6 +109,14 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
 
             experienceView.descriptionTextView.text =
                 getExperienceString(workSinceTimestamp = employee.workSinceTimestamp)
+
+            dispatcherTextCheckBoxView.checkBox.isChecked = employee.role == Role.DISPATCHER
+            dispatcherTextCheckBoxView.checkBox.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.changeRole(isDispatcher = isChecked)
+            }
+
+            button.text = getString(R.string.save)
+            button.setOnClickListener { viewModel.save { navigateUp() } }
         }
     }
 
@@ -147,5 +157,10 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
             monthsString != null -> monthsString
             else -> getString(R.string.less_than_month)
         }
+    }
+
+    private fun moveToDealFragment(fullDeal: FullDeal) {
+        val direction = EmployeeFragmentDirections.toDealFragment()
+        findNavController().navigate(direction)
     }
 }
