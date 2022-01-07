@@ -16,7 +16,7 @@ import sibfu.tradeapp.databinding.FragmentLoginBinding
 import sibfu.tradeapp.utils.PreferenceKeys
 import sibfu.tradeapp.utils.inputText
 import sibfu.tradeapp.utils.preferences
-import sibfu.tradeapp.utils.removeErrorOnFocus
+import sibfu.tradeapp.utils.setRemoveErrorOnFocusListener
 import sibfu.tradeapp.utils.showShortToast
 import sibfu.tradeapp.utils.validateInput
 
@@ -26,7 +26,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val viewModel: LoginViewModel by viewModels()
 
         with(FragmentLoginBinding.bind(view)) {
-            removeErrorOnFocus(loginLayout, passwordLayout)
+            setRemoveErrorOnFocusListener(loginLayout, passwordLayout)
 
             loginButton.setOnClickListener {
                 view.clearFocus()

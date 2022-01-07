@@ -16,7 +16,7 @@ val EditText.inputText: String?
 val TextInputLayout.inputText: String?
     get() = editText?.inputText
 
-fun removeErrorOnFocus(vararg layouts: TextInputLayout) {
+fun setRemoveErrorOnFocusListener(vararg layouts: TextInputLayout) {
     layouts.forEach { layout ->
         layout.editText?.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {

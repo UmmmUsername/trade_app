@@ -1,4 +1,4 @@
-package sibfu.tradeapp.screens
+package sibfu.tradeapp.screens.product
 
 import android.os.Bundle
 import android.view.View

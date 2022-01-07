@@ -49,6 +49,12 @@
         <action
             android:id="@+id/toProductFragment"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/toClientAdding"
+            app:destination="@id/addClientFragment" />
+        <action
+            android:id="@+id/toProductAdding"
+            app:destination="@id/addProductFragment" />
     </fragment>
 
     <fragment
@@ -113,7 +119,7 @@
 
     <fragment
         android:id="@+id/clientFragment"
-        android:name="sibfu.tradeapp.screens.ClientFragment"
+        android:name="sibfu.tradeapp.screens.client.ClientFragment"
         android:label="ClientFragment"
         tools:layout="@layout/fragment_client">
 
@@ -127,7 +133,7 @@
 
     <fragment
         android:id="@+id/productFragment"
-        android:name="sibfu.tradeapp.screens.ProductFragment"
+        android:name="sibfu.tradeapp.screens.product.ProductFragment"
         android:label="ProductFragment"
         tools:layout="@layout/fragment_product">
 
@@ -189,5 +195,17 @@
             android:name="products"
             app:argType="sibfu.tradeapp.db.entities.Product[]" />
     </fragment>
+
+    <fragment
+        android:id="@+id/addClientFragment"
+        android:name="sibfu.tradeapp.screens.client.add.AddClientFragment"
+        android:label="AddClientFragment"
+        tools:layout="@layout/fragment_add_client" />
+
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="sibfu.tradeapp.screens.product.add.AddProductFragment"
+        android:label="AddProductFragment"
+        tools:layout="@layout/fragment_add_product" />
 
 </navigation>

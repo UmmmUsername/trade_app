@@ -9,7 +9,7 @@ import sibfu.tradeapp.db.entities.interfaces.HasName
 @Entity
 @Parcelize
 data class Product(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     override val name: String,
     val unit: String,
     val price: Int,

@@ -16,7 +16,7 @@ import sibfu.tradeapp.databinding.FragmentAddEmployeeBinding
 import sibfu.tradeapp.db.entities.Employee
 import sibfu.tradeapp.utils.inputText
 import sibfu.tradeapp.utils.navigateUp
-import sibfu.tradeapp.utils.removeErrorOnFocus
+import sibfu.tradeapp.utils.setRemoveErrorOnFocusListener
 import sibfu.tradeapp.utils.validateInput
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -33,7 +33,7 @@ class AddEmployeeFragment : Fragment(R.layout.fragment_add_employee) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
-            removeErrorOnFocus(layouts = layouts)
+            setRemoveErrorOnFocusListener(layouts = layouts)
 
             toolbar.setNavigationOnClickListener { navigateUp() }
 

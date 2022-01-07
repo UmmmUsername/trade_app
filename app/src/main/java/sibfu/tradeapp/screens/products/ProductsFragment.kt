@@ -58,7 +58,7 @@ class ProductsFragment : Fragment(R.layout.fragment_common_recycler) {
         toolbar.title = getString(R.string.select_product)
         toolbar.setNavigationOnClickListener { navigateUp() }
         floatingActionButton.isVisible = isFloatingButtonVisible
-        floatingActionButton.setOnClickListener { TODO() }
+        floatingActionButton.setOnClickListener { moveToProductAdding() }
         recyclerView.adapter = adapter
     }
 
@@ -71,6 +71,11 @@ class ProductsFragment : Fragment(R.layout.fragment_common_recycler) {
         val key = if (isSale) PRODUCT_TO_SELL else PRODUCT_TO_BUY
         setFragmentResult(requestKey = key, result = bundleOf(PRODUCT to product))
         findNavController().navigateUp()
+    }
+
+    private fun moveToProductAdding() {
+        val direction = MainFragmentDirections.toProductAdding()
+        findNavController().navigate(direction)
     }
 
     companion object {

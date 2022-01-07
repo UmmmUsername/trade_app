@@ -56,7 +56,7 @@ class ClientsFragment : Fragment(R.layout.fragment_common_recycler) {
             appBarLayout.isVisible = isToolbarVisible
             recyclerView.adapter = adapter
             floatingActionButton.isVisible = isFloatingButtonVisible
-            floatingActionButton.setOnClickListener { TODO("add a client") }
+            floatingActionButton.setOnClickListener { moveToClientAdding() }
         }
     }
 
@@ -69,6 +69,11 @@ class ClientsFragment : Fragment(R.layout.fragment_common_recycler) {
         val key = if (isSale) CLIENT_BUYER else CLIENT_SELLER
         setFragmentResult(requestKey = key, result = bundleOf(CLIENT to client))
         findNavController().navigateUp()
+    }
+
+    private fun moveToClientAdding() {
+        val direction = MainFragmentDirections.toClientAdding()
+        findNavController().navigate(direction)
     }
 
     companion object {
