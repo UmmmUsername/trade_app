@@ -18,6 +18,7 @@ import sibfu.tradeapp.utils.inputText
 import sibfu.tradeapp.utils.preferences
 import sibfu.tradeapp.utils.removeErrorOnFocus
 import sibfu.tradeapp.utils.showShortToast
+import sibfu.tradeapp.utils.validateInput
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -69,40 +70,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val login = loginLayout.inputText
         val password = passwordLayout.inputText
 
-        val areFieldsValid =
-            validateLoginFields(
-                loginLayout = loginLayout,
-                loginText = login,
-                passwordLayout = passwordLayout,
-                passwordText = password
-            )
-
-        if (!areFieldsValid || login == null || password == null) {
-            return
-        }
-
-        logInFunction(login, password)
-    }
-
-    private fun validateLoginFields(
-        loginLayout: TextInputLayout,
-        loginText: String?,
-        passwordLayout: TextInputLayout,
-        passwordText: String?,
-    ): Boolean {
-        val isLoginValid = validateField(layout = loginLayout, text = loginText)
-        val isPasswordValid = validateField(layout = passwordLayout, text = passwordText)
-
-        return isLoginValid && isPasswordValid
-    }
-
-    private fun validateField(layout: TextInputLayout, text: String?): Boolean {
-        return if (text.isNullOrEmpty()) {
-            layout.isErrorEnabled = true
-            layout.error = getString(R.string.field_required)
-            false
-        } else {
-            true
+        if (validateInput(loginLayout, passwordLayout) && login != null && password != null) {
+            logInFunction(login, password)
         }
     }
 }

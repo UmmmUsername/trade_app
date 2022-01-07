@@ -20,6 +20,7 @@ class EmployeeViewHolder(
             nameTextView.text = employee.getShortenedName(context = context)
             positionTextView.text = employee.position
             numberTextView.text = context.getString(R.string.personal_number_pattern, employee.id)
+            firedTextView.isVisible = !employee.isActive
 
             root.setOnClickListener { onClick(employee.id) }
         }

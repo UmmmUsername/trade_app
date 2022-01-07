@@ -38,14 +38,16 @@ class TwoLinesItemView @JvmOverloads constructor(
             descriptionTextView.text =
                 typedArray.getText(R.styleable.TwoLinesItemView_description)
 
-            val clickable = androidTypedArray.getBoolean(0, false)
-
-            arrowImageView.isVisible = clickable
-            isClickable = clickable
-            isFocusable = clickable
+            isClickable = androidTypedArray.getBoolean(0, false)
         } finally {
             typedArray.recycle()
             androidTypedArray.recycle()
         }
+    }
+
+    override fun setClickable(clickable: Boolean) {
+        super.setClickable(clickable)
+        isFocusable = clickable
+        arrowImageView.isVisible = clickable
     }
 }

@@ -12,7 +12,8 @@ import sibfu.tradeapp.models.Role
 @Parcelize
 @Entity(indices = [Index(value = ["login"], unique = true)])
 data class Employee(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val login: String,
     val password: String,
     val firstName: String,
@@ -21,7 +22,7 @@ data class Employee(
     val position: String,
     val workSinceTimestamp: Long,
     val roleString: String,
-    // TODO add trades
+    val isActive: Boolean,
 ) : Parcelable {
 
     val role: Role

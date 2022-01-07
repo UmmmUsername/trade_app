@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import sibfu.tradeapp.db.dao.ClientDao
 import sibfu.tradeapp.db.dao.DealDao
 import sibfu.tradeapp.db.dao.EmployeeDao
+import sibfu.tradeapp.db.dao.ProductDao
 import sibfu.tradeapp.db.entities.Client
 import sibfu.tradeapp.db.entities.Deal
 import sibfu.tradeapp.db.entities.Employee
@@ -25,4 +26,6 @@ abstract class Database : RoomDatabase() {
     abstract fun clientDao(): ClientDao
 
     abstract fun dealDao(): DealDao
+
+    abstract fun productDao(): ProductDao
 }

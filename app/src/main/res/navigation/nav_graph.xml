@@ -40,6 +40,15 @@
         <action
             android:id="@+id/toClientFragment"
             app:destination="@id/clientFragment" />
+        <action
+            android:id="@+id/toEmployeeAdding"
+            app:destination="@id/addEmployeeFragment" />
+        <action
+            android:id="@+id/toDealAdding"
+            app:destination="@id/addDealFragment" />
+        <action
+            android:id="@+id/toProductFragment"
+            app:destination="@id/productFragment" />
     </fragment>
 
     <fragment
@@ -80,7 +89,7 @@
 
     <fragment
         android:id="@+id/dealFragment"
-        android:name="sibfu.tradeapp.screens.DealFragment"
+        android:name="sibfu.tradeapp.screens.deal.DealFragment"
         android:label="DealFragment"
         tools:layout="@layout/fragment_deal">
 
@@ -128,6 +137,57 @@
         <argument
             android:name="product"
             app:argType="sibfu.tradeapp.db.entities.Product" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        android:name="sibfu.tradeapp.screens.employee.add.AddEmployeeFragment"
+        android:label="AddEmployeeFragment"
+        tools:layout="@layout/fragment_add_employee" />
+
+    <fragment
+        android:id="@+id/addDealFragment"
+        android:name="sibfu.tradeapp.screens.deal.add.AddDealFragment"
+        android:label="AddDealFragment"
+        tools:layout="@layout/fragment_add_deal">
+
+        <argument
+            android:name="me"
+            app:argType="sibfu.tradeapp.db.entities.Employee" />
+        <action
+            android:id="@+id/toClientsFragment"
+            app:destination="@id/clientsFragment" />
+        <action
+            android:id="@+id/toProductsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/clientsFragment"
+        android:name="sibfu.tradeapp.screens.clients.ClientsFragment"
+        android:label="ClientsFragment"
+        tools:layout="@layout/fragment_common_recycler">
+
+        <argument
+            android:name="flow"
+            app:argType="sibfu.tradeapp.screens.clients.ClientsFlow" />
+        <argument
+            android:name="clients"
+            app:argType="sibfu.tradeapp.db.entities.Client[]" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="sibfu.tradeapp.screens.products.ProductsFragment"
+        android:label="ProductsFragment"
+        tools:layout="@layout/fragment_common_recycler">
+
+        <argument
+            android:name="flow"
+            app:argType="sibfu.tradeapp.screens.products.ProductsFlow" />
+        <argument
+            android:name="products"
+            app:argType="sibfu.tradeapp.db.entities.Product[]" />
     </fragment>
 
 </navigation>

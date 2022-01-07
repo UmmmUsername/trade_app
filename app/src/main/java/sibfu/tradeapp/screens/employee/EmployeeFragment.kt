@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -31,11 +32,9 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
     private val args: EmployeeFragmentArgs by navArgs()
     private val viewModel: EmployeeViewModel by viewModels()
 
-    private var _binding: FragmentEmployeeBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentEmployeeBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        _binding = FragmentEmployeeBinding.bind(view)
         viewModel.requestEmployee(employeeId = args.employeeId)
 
         with(binding.toolbar) {
@@ -77,11 +76,6 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun FragmentEmployeeBinding.setLoading(value: Boolean) {
         progress.isVisible = value
         scrollView.isVisible = !value
@@ -113,6 +107,10 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
             experienceView.descriptionTextView.text =
                 getExperienceString(workSinceTimestamp = employee.workSinceTimestamp)
 
+            val statusRes = if (employee.isActive) R.string.status_active else R.string.status_fired
+            statusView.descriptionTextView.text = getString(statusRes)
+
+            dispatcherTextCheckBoxView.checkBox.isEnabled = employee.isActive
             dispatcherTextCheckBoxView.checkBox.isChecked = employee.role == Role.DISPATCHER
             dispatcherTextCheckBoxView.checkBox.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.changeRole(isDispatcher = isChecked)
@@ -126,8 +124,19 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
                 }
 
                 Role.DISPATCHER -> {
-                    button.text = getString(R.string.fire_employee)
-                    button.setOnClickListener { /* TODO show dialog */ }
+                    val isActive = employee.isActive
+
+                    val buttonTextRes =
+                        if (employee.isActive) {
+                            R.string.fire_employee
+                        } else {
+                            R.string.return_employee
+                        }
+
+                    button.text = getString(buttonTextRes)
+                    button.setOnClickListener {
+                        showEmployeeStatusChangingDialog(isFired = isActive)
+                    }
                 }
 
                 Role.WORKER -> {
@@ -135,6 +144,19 @@ class EmployeeFragment : Fragment(R.layout.fragment_employee) {
                 }
             }
         }
+    }
+
+    private fun showEmployeeStatusChangingDialog(isFired: Boolean) {
+        val messageRes =
+            if (isFired) R.string.fire_employee_message else R.string.return_employee_message
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(messageRes)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                viewModel.changeEmployeeStatus(isFired = isFired)
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
     }
 
     private fun getExperienceString(workSinceTimestamp: Long): String {

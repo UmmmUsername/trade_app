@@ -47,11 +47,17 @@ class EmployeeViewModel : ViewModel() {
 
     fun save(doOnSaved: () -> Unit) {
         viewModelScope.launch {
-            state.value.employee?.let { employee ->
-                db.employeeDao().update(employee = employee)
-            }
-
+            state.value.employee?.let { employee -> db.employeeDao().update(employee) }
             doOnSaved()
+        }
+    }
+
+    fun changeEmployeeStatus(isFired: Boolean) {
+        state.value.employee?.copy(isActive = !isFired)?.let { employee ->
+            viewModelScope.launch {
+                db.employeeDao().update(employee = employee)
+                _state.value = state.value.copy(employee = employee)
+            }
         }
     }
 

@@ -31,7 +31,8 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:overScrollMode="never">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -75,6 +76,12 @@
                 android:layout_height="wrap_content"
                 app:title="@string/experience" />
 
+            <sibfu.tradeapp.view.TwoLinesItemView
+                android:id="@+id/statusView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/status" />
+
             <sibfu.tradeapp.view.TextCheckBoxView
                 android:id="@+id/dispatcherTextCheckBoxView"
                 android:layout_width="match_parent"
@@ -95,6 +102,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

@@ -1,8 +1,10 @@
 package sibfu.tradeapp.db.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import sibfu.tradeapp.db.entities.Deal
 import sibfu.tradeapp.db.entities.FullDeal
 
 @Dao
@@ -15,4 +17,7 @@ interface DealDao {
     @Transaction
     @Query("SELECT * FROM Deal WHERE employeeId = :employeeId")
     suspend fun findAllByEmployeeId(employeeId: Int): Array<FullDeal>
+
+    @Insert
+    suspend fun insertDeal(deal: Deal)
 }

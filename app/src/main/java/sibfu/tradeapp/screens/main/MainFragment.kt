@@ -10,13 +10,16 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentMainBinding
+import sibfu.tradeapp.db.entities.Employee
 import sibfu.tradeapp.models.Role
-import sibfu.tradeapp.screens.main.adapters.AdminAdapter
+import sibfu.tradeapp.screens.main.adapters.AdminDispatcherAdapter
+import sibfu.tradeapp.screens.main.adapters.WorkerAdapter
 import sibfu.tradeapp.utils.PreferenceKeys
 import sibfu.tradeapp.utils.preferences
 import sibfu.tradeapp.utils.throwIllegalPositionException
@@ -26,14 +29,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val args: MainFragmentArgs by navArgs()
     private val viewModel: MainViewModel by viewModels()
 
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentMainBinding::bind)
+
+    private val me: Employee
+        get() = args.employee
 
     private val myRole: Role
-        get() = args.employee.role
+        get() = me.role
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        _binding = FragmentMainBinding.bind(view)
         requestData()
 
         val titleRes = when (myRole) {
@@ -73,23 +77,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun requestData() {
         when (myRole) {
             Role.ADMIN -> viewModel.requestAdminData()
-
-            Role.DISPATCHER -> TODO()
-            Role.WORKER -> TODO()
+            Role.DISPATCHER -> viewModel.requestDispatcherData()
+            Role.WORKER -> viewModel.requestWorkerData()
         }
     }
 
     private fun setupScreen(data: MainScreenData) {
         val (adapter, strategy) = when (data) {
-            is AdminData -> handleAdminFlow(data = data)
+            is AdminDispatcherData -> handleAdminDispatcherFlow(data = data)
+            is WorkerData -> handleWorkerFlow(data = data)
         }
 
         with(binding) {
@@ -98,14 +97,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun handleAdminFlow(
-        data: AdminData,
+    private fun handleAdminDispatcherFlow(
+        data: AdminDispatcherData,
     ): Pair<FragmentStateAdapter, TabLayoutMediator.TabConfigurationStrategy> {
         val (employees, clients, deals) = data
 
-        val adapter = AdminAdapter(
+        val adapter = AdminDispatcherAdapter(
             fragment = this,
-            myRole = myRole,
+            me = me,
             employees = employees,
             clients = clients,
             fullDeals = deals,
@@ -113,9 +112,36 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         val strategy = TabLayoutMediator.TabConfigurationStrategy { tab, position ->
             val tabTitleRes = when (position) {
-                AdminAdapter.EMPLOYEES_POSITION -> R.string.employees
-                AdminAdapter.CLIENTS_POSITION -> R.string.clients
-                AdminAdapter.DEALS_POSITION -> R.string.deals
+                AdminDispatcherAdapter.EMPLOYEES_POSITION -> R.string.employees
+                AdminDispatcherAdapter.CLIENTS_POSITION -> R.string.clients
+                AdminDispatcherAdapter.DEALS_POSITION -> R.string.deals
+                else -> throwIllegalPositionException(position = position)
+            }
+
+            tab.text = getString(tabTitleRes)
+        }
+
+        return adapter to strategy
+    }
+
+    private fun handleWorkerFlow(
+        data: WorkerData,
+    ): Pair<FragmentStateAdapter, TabLayoutMediator.TabConfigurationStrategy> {
+        val (deals, clients, products) = data
+
+        val adapter = WorkerAdapter(
+            fragment = this,
+            me = me,
+            fullDeals = deals,
+            clients = clients,
+            products = products,
+        )
+
+        val strategy = TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+            val tabTitleRes = when (position) {
+                WorkerAdapter.DEALS_POSITION -> R.string.deals
+                WorkerAdapter.CLIENTS_POSITION -> R.string.clients
+                WorkerAdapter.PRODUCT_POSITION -> R.string.products
                 else -> throwIllegalPositionException(position = position)
             }
 
