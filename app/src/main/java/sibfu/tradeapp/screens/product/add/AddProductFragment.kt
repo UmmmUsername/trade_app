@@ -3,9 +3,17 @@ package sibfu.tradeapp.screens.product.add
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.textfield.TextInputLayout
 import sibfu.tradeapp.R
 import sibfu.tradeapp.databinding.FragmentAddProductBinding
+import sibfu.tradeapp.db.entities.Product
+import sibfu.tradeapp.utils.inputText
+import sibfu.tradeapp.utils.navigateUp
+import sibfu.tradeapp.utils.restrictByIntBounds
+import sibfu.tradeapp.utils.setNumbersOnlyInputType
+import sibfu.tradeapp.utils.setRemoveErrorOnFocusListener
+import sibfu.tradeapp.utils.validateInput
 
 class AddProductFragment : Fragment(R.layout.fragment_add_product) {
 
