@@ -45,6 +45,7 @@
     <string name="about_employee">О сотруднике</string>
     <string name="about_deal">О сделке</string>
     <string name="about_client">О клиенте</string>
+    <string name="about_product">О товаре</string>
     <string name="position">Должность</string>
     <string name="experience">Стаж</string>
     <string name="status">Статус</string>
